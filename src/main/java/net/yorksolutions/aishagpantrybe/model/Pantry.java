@@ -38,6 +38,21 @@ public class Pantry {
     @JsonProperty
     String foodCategory;
 
+    public Pantry() {
+
+    }
+
+    public Pantry(String foodName, String foodImage, int weight, int calories,
+                  boolean available, boolean favorite, String foodCategory) {
+        this.foodName = foodName;
+        this.foodImage = foodImage;
+        this.weight = weight;
+        this.calories = calories;
+        this.available = available;
+        this.favorite = favorite;
+        this.foodCategory = foodCategory;
+    }
+
     public Long getId() {
         return id;
     }

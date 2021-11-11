@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties
@@ -28,6 +30,25 @@ public class Recipes {
 
     @JsonProperty
     String recipeSteps;
+
+    @JsonProperty
+    String recipeCategory;
+
+    @JsonProperty
+    Boolean favorite;
+
+    public Recipes(String recipeName, String recipeImage, String ingredients, String recipeSteps, String recipeCategory, Boolean favorite) {
+        this.recipeName = recipeName;
+        this.recipeImage = recipeImage;
+        this.ingredients = ingredients;
+        this.recipeSteps = recipeSteps;
+        this.recipeCategory = recipeCategory;
+        this.favorite = favorite;
+    }
+
+    public Recipes() {
+
+    }
 
     public String getRecipeName() {
         return recipeName;
@@ -59,6 +80,22 @@ public class Recipes {
 
     public void setRecipeSteps(String recipeSteps) {
         this.recipeSteps = recipeSteps;
+    }
+
+    public String getRecipeCategory() {
+        return recipeCategory;
+    }
+
+    public void setRecipeCategory(String recipeCategory) {
+        this.recipeCategory = recipeCategory;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 }
 
