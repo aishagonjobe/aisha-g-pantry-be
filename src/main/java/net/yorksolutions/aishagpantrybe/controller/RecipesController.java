@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/recipes")
 public class RecipesController {
@@ -91,7 +91,7 @@ public class RecipesController {
             recipes.setRecipeImage(recipes.getRecipeImage());
             recipes.setIngredients(recipes.getIngredients());
             recipes.setRecipeSteps(recipes.getRecipeSteps());
-            recipes.setFavorite(recipes.getFavorite());
+            recipes.setRecipeFavorite(recipes.getRecipeFavorite());
             recipes.setRecipeCategory(recipes.getRecipeCategory());
             return new ResponseEntity<>(recipesRepository.save(recipe), HttpStatus.OK);
         } else {
@@ -100,12 +100,12 @@ public class RecipesController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteRecipe(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteRecipe(@PathVariable("id") Long id) {
         try {
             recipesRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Deleted successfully.", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Internal error.",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -3,11 +3,8 @@ package net.yorksolutions.aishagpantrybe.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Arrays;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,22 +25,24 @@ public class Recipes {
     @JsonProperty
     String ingredients;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipeSteps")
     @JsonProperty
-    String recipeSteps;
+    List<RecipeSteps> recipeSteps = new ArrayList<>();
 
     @JsonProperty
     String recipeCategory;
 
     @JsonProperty
-    Boolean favorite;
+    Boolean recipeFavorite;
 
-    public Recipes(String recipeName, String recipeImage, String ingredients, String recipeSteps, String recipeCategory, Boolean favorite) {
+    public Recipes(String recipeName, String recipeImage, String ingredients,
+                   List<RecipeSteps> recipeSteps, String recipeCategory, Boolean recipeFavorite) {
         this.recipeName = recipeName;
         this.recipeImage = recipeImage;
         this.ingredients = ingredients;
         this.recipeSteps = recipeSteps;
         this.recipeCategory = recipeCategory;
-        this.favorite = favorite;
+        this.recipeFavorite = recipeFavorite;
     }
 
     public Recipes() {
@@ -74,11 +73,11 @@ public class Recipes {
         this.ingredients = ingredients;
     }
 
-    public String getRecipeSteps() {
+    public List<RecipeSteps> getRecipeSteps() {
         return recipeSteps;
     }
 
-    public void setRecipeSteps(String recipeSteps) {
+    public void setRecipeSteps(List<RecipeSteps> recipeSteps) {
         this.recipeSteps = recipeSteps;
     }
 
@@ -90,12 +89,15 @@ public class Recipes {
         this.recipeCategory = recipeCategory;
     }
 
-    public Boolean getFavorite() {
-        return favorite;
+    public Boolean getRecipeFavorite() {
+        return recipeFavorite;
     }
 
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
+    public void setRecipeFavorite(Boolean recipeFavorite) {
+        this.recipeFavorite = recipeFavorite;
+    }
+
+    private class Steps {
     }
 }
 

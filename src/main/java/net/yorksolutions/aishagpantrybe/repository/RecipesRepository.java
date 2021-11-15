@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RecipesRepository extends CrudRepository<Recipes, Long> {
-    List<Recipes> findByRecipeFavorite(boolean favorite);
+    List<Recipes> findByRecipeFavorite(boolean recipeFavorite);
 
     List<Recipes> findByRecipeCategory(String recipeCategory);
 }

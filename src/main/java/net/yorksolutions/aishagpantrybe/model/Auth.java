@@ -16,7 +16,7 @@ public class Auth {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty
     Long id;
-
+    
     @JsonProperty
     String fName;
 
@@ -28,6 +28,19 @@ public class Auth {
 
     @JsonProperty
     String password;
+
+
+    public Auth(Long id, String fName, String lName, String username, String password) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Auth() {
+
+    }
 
 
     public Long getId() {
@@ -65,4 +78,5 @@ public class Auth {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

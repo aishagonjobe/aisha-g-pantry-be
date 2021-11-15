@@ -13,5 +13,5 @@ public interface PantryRepository extends CrudRepository<Pantry, Long> {
 
     List<Pantry> findByAvailable(boolean available);
 
-    List<Pantry> findByCategory(String foodCategory);
+    List<Pantry> findByFoodCategory(String foodCategory);
 }

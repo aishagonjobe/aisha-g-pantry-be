@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/pantry")
 public class PantryController {
@@ -27,7 +27,7 @@ public class PantryController {
             if (foodCategory == null)
                 pantryRepository.findAll().forEach(pantryList::add);
             else
-                pantryList.addAll(pantryRepository.findByCategory(foodCategory));
+                pantryList.addAll(pantryRepository.findByFoodCategory(foodCategory));
             if (pantryList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -97,7 +97,7 @@ public class PantryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pantry> updateFood(@PathVariable("id") Long id, @RequestBody Pantry pantry) {
+    public ResponseEntity<?> updateFood(@PathVariable("id") Long id, @RequestBody Pantry pantry) {
         Optional<Pantry> pantryData = pantryRepository.findById(id);
 
         if (pantryData.isPresent()) {
@@ -109,19 +109,19 @@ public class PantryController {
             pantry.setAvailable(pantry.getAvailable());
             pantry.setFavorite(pantry.getFavorite());
             pantry.setFoodCategory(pantry.getFoodCategory());
-            return new ResponseEntity<>(pantryRepository.save(food), HttpStatus.OK);
+            return new ResponseEntity<Pantry>(pantryRepository.save(food), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("Not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteFood(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteFood(@PathVariable("id") Long id) {
         try {
             pantryRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Deleted successfully.", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Internal error.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
