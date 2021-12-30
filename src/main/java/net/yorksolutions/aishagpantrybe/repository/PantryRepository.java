@@ -8,10 +8,4 @@ import java.util.List;
 
 @Repository
 public interface PantryRepository extends CrudRepository<Pantry, Long> {
-
-    List<Pantry> findByFavorite(boolean favorite);
-
-    List<Pantry> findByAvailable(boolean available);
-
-    List<Pantry> findByFoodCategory(String foodCategory);
 }

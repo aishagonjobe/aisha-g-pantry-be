@@ -20,16 +20,13 @@ public class RecipesController {
     RecipesRepository recipesRepository;
 
     @GetMapping("/get-recipes")
-    public ResponseEntity<List<Recipes>> requestRecipes(String recipeCategory) {
+    public ResponseEntity<List<Recipes>> requestRecipes() {
         try {
             List<Recipes> recipesList = new ArrayList<Recipes>();
             recipesRepository.findAll().forEach(recipesList::add);
-            if (recipeCategory == null)
-                recipesRepository.findAll().forEach(recipesList::add);
-            else
-                recipesList.addAll(recipesRepository.findByRecipeCategory(recipeCategory));
+
             if (recipesList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
             return new ResponseEntity<>(recipesList, HttpStatus.OK);
@@ -44,7 +41,7 @@ public class RecipesController {
             List<Recipes> recipe = recipesRepository.findByRecipeFavorite(true);
 
             if (recipe.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(recipe, HttpStatus.OK);
         } catch (Exception e) {
@@ -52,8 +49,8 @@ public class RecipesController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Recipes> requestRecipe(@PathVariable("id") Long id) {
+    @GetMapping("/get-recipe")
+    public ResponseEntity<Recipes> requestRecipe(@RequestParam("id") Long id) {
         Optional<Recipes> recipeData = recipesRepository.findById(id);
 
         if (recipeData.isPresent()) {
@@ -81,8 +78,8 @@ public class RecipesController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Recipes> updateRecipe(@PathVariable("id") Long id, @RequestBody Recipes recipes) {
+    @PutMapping("/update-recipe")
+    public ResponseEntity<Recipes> updateRecipe(@RequestParam("id") Long id, @RequestBody Recipes recipes) {
         Optional<Recipes> recipesData = recipesRepository.findById(id);
 
         if (recipesData.isPresent()) {
@@ -99,8 +96,8 @@ public class RecipesController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRecipe(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete-recipe")
+    public ResponseEntity<?> deleteRecipe(@RequestParam("id") Long id) {
         try {
             recipesRepository.deleteById(id);
             return new ResponseEntity<String>("Deleted successfully.", HttpStatus.OK);

@@ -30,28 +30,7 @@ public class Pantry {
     int calories;
 
     @JsonProperty
-    Boolean available;
-
-    @JsonProperty
-    Boolean favorite;
-
-    @JsonProperty
     String foodCategory;
-
-    public Pantry() {
-
-    }
-
-    public Pantry(String foodName, String foodImage, int weight, int calories,
-                  boolean available, boolean favorite, String foodCategory) {
-        this.foodName = foodName;
-        this.foodImage = foodImage;
-        this.weight = weight;
-        this.calories = calories;
-        this.available = available;
-        this.favorite = favorite;
-        this.foodCategory = foodCategory;
-    }
 
     public Long getId() {
         return id;
@@ -87,22 +66,6 @@ public class Pantry {
 
     public void setCalories(int calories) {
         this.calories = calories;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    public Boolean getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
     }
 
     public String getFoodCategory() {

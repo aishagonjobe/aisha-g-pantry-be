@@ -2,7 +2,6 @@ package net.yorksolutions.aishagpantrybe.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.yorksolutions.aishagpantrybe.model.Auth;
-import net.yorksolutions.aishagpantrybe.model.Pantry;
 import net.yorksolutions.aishagpantrybe.repository.AuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import java.util.Optional;
 @RequestMapping("/user")
 @RestController
 public class AuthController {
+
     @Autowired
     AuthRepository authRepository;
     ObjectMapper objectMapper = new ObjectMapper();
@@ -36,7 +36,7 @@ public class AuthController {
         try{
         if (userData.isPresent()) {
             Auth login = userData.get();
-            return new ResponseEntity<>("\"Login Success\"", HttpStatus.OK);
+            return new ResponseEntity<>("Login Success", HttpStatus.OK);
         }
             return new ResponseEntity<>("Login Failed", HttpStatus.FORBIDDEN);
         } catch (Exception e) {
